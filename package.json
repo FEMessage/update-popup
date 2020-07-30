@@ -14,10 +14,14 @@
   ],
   "main": "index.js",
   "files": [
-    "**/*.js"
+    "src/**/*.js",
+    "index.js",
+    "nuxt.js",
+    "poi.js"
   ],
   "scripts": {
-    "test": "jest --verbose"
+    "test": "jest --verbose",
+    "stdver": "standard-version -m '[skip ci] chore(release): v%s'"
   },
   "dependencies": {
     "@evillt/toast": "^1.3.1",
