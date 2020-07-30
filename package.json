@@ -16,6 +16,7 @@
   ],
   "files": [
     "src",
+    "utils",
     "index.js",
     "nuxt.js",
     "poi.js"
