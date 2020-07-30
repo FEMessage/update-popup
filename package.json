@@ -14,7 +14,10 @@
   ],
   "main": "index.js",
   "files": [
-    "**/*.js"
+    "src/**/*.js",
+    "index.js",
+    "nuxt.js",
+    "poi.js"
   ],
   "scripts": {
     "test": "jest --verbose"
