@@ -9,7 +9,7 @@ git:
 install:
 - yarn --frozen-lockfile
 - yarn test
-script:
+after-script:
 - ./notify.sh
 cache: yarn
 deploy:
