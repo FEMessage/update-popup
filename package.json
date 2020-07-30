@@ -1,7 +1,8 @@
 {
   "name": "@femessage/update-popup",
+  "version": "1.0.0",
   "description": "Display an update message at right bottom",
-  "version": "1.0.1",
+  "author": "https://github.com/FEMessage",
   "license": "MIT",
   "repository": {
     "type": "git",
@@ -10,18 +11,20 @@
   "keywords": [
     "vue",
     "sfc",
-    "component"
+    "component",
+    "update"
   ],
-  "main": "index.js",
   "files": [
-    "src/**/*.js",
+    "src",
     "index.js",
     "nuxt.js",
     "poi.js"
   ],
+  "main": "index.js",
   "scripts": {
     "test": "jest --verbose",
-    "stdver": "standard-version -m '[skip ci] chore(release): v%s'"
+    "stdver": "standard-version -m '[skip ci] chore(release): v%s'",
+    "release": "gren release --override"
   },
   "dependencies": {
     "@evillt/toast": "^1.3.1",
@@ -29,14 +32,14 @@
     "lodash.get": "^4.4.2"
   },
   "devDependencies": {
-    "@babel/core": "^7.10.5",
-    "@babel/preset-env": "^7.10.4",
+    "@babel/core": "^7.4.3",
+    "@babel/preset-env": "^7.4.3",
     "@femessage/github-release-notes": "^0.19.0",
     "husky": "1.3.1",
-    "jest": "^26.1.0",
+    "jest": "^24.8.0",
     "lint-staged": "^8.1.0",
     "prettier": "1.18.2",
-    "standard-version": "^8.0.1"
+    "standard-version": "^6.0.1"
   },
   "publishConfig": {
     "access": "public"
