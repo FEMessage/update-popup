@@ -42,7 +42,7 @@ yarn add @femessage/update-popup
 
 ```bash
 # .env
-UPDATE_POPUP_VERSION=1.0.0
+UPDATE_POPUP_VERSION=1.0.0 # 如果有必要，可以支持更多位数。如：1.0.0.1，1.0.0.1.1
 ```
 
 工程配置文件
@@ -50,14 +50,14 @@ UPDATE_POPUP_VERSION=1.0.0
 ```js
 // nuxt.config.js
 const config = {
-  modules: ['@femessage/update-popup/nuxt']
+  modules: ['@femessage/update-popup/nuxt', {options}]
 }
 
 // vue.config.js 或者 poi.config.js
 const UpdatePopup = require('@femessage/update-popup')
 const config = {
   chainWebpack: config => {
-    config.plugin('femessage-update-popup').use(UpdatePopup)
+    config.plugin('femessage-update-popup').use(UpdatePopup, [{options}])
   }
 }
 ```
