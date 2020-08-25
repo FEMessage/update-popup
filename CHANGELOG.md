@@ -2,6 +2,15 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [1.0.4](https://github.com/FEMessage/update-popup/compare/v1.0.3...v1.0.4) (2020-08-25)
+
+
+### Bug Fixes
+
+* 完善版本号检测 ([#18](https://github.com/FEMessage/update-popup/issues/18)) ([b622be4](https://github.com/FEMessage/update-popup/commit/b622be4)), closes [#16](https://github.com/FEMessage/update-popup/issues/16)
+
+
+
 ### [1.0.3](https://github.com/FEMessage/update-popup/compare/v1.0.2...v1.0.3) (2020-07-30)
 
 
