@@ -76,7 +76,7 @@ export function compareVersion(newVersion, currentVersion) {
     const c = currentVersion.split('.')
 
     for (let i = 0; i <= n.length; i++) {
-      if (Number(n[i]) > Number(c[i])) return true
+      if (Number(n[i]) > Number(c[i] || 0)) return true
     }
   }
 
