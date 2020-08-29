@@ -1,5 +1,5 @@
-import '@evillt/toast/dist/toast.css'
-import {createToast} from '@evillt/toast'
+import 'vercel-toast/dist/vercel-toast.css'
+import {createToast} from 'vercel-toast'
 
 main()
 
