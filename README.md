@@ -36,7 +36,7 @@ yarn add @femessage/update-popup
 
 ## Usage
 
-You need to set environment variables UPDATE_POPUP_VERSION, when iteratively updating, modify the variables greater than current value.
+You need to set environment variables `UPDATE_POPUP_VERSION`, when iteratively updating, modify the variables greater than current value.
 
 Environment variables
 
