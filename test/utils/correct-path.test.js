@@ -20,4 +20,22 @@ describe('测试路径拼接', () => {
       'no-slash.com/index.html'
     )
   })
+
+  test('http 开头', () => {
+    expect(correctPath('http://no-slash.com', 'index.html')).toBe(
+      'http://no-slash.com/index.html'
+    )
+  })
+
+  test('https 开头', () => {
+    expect(correctPath('https://no-slash.com', 'index.html')).toBe(
+      'https://no-slash.com/index.html'
+    )
+  })
+
+  test('// 开头', () => {
+    expect(correctPath('//no-slash.com', 'index.html')).toBe(
+      '//no-slash.com/index.html'
+    )
+  })
 })
