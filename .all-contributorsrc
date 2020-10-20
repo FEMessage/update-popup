@@ -30,7 +30,9 @@
       "profile": "https://4ark.me",
       "contributions": [
         "doc",
-        "translation"
+        "translation",
+        "code",
+        "bug"
       ]
     }
   ],
