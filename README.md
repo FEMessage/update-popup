@@ -85,7 +85,7 @@ Use publicPath setting
 - Type: `boolean`
 - Default: `false`
 
-automatic update version，need to configure `options.versionType`.
+set `options.versionType` to make updated version code automatic
 
 **Note**：If true，the environment variable `UPDATE_POPUP_VERSION` No longer takes effect.
 

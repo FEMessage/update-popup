@@ -45,7 +45,7 @@ yarn add @femessage/update-popup
 UPDATE_POPUP_VERSION=1.0.0 # 如果有必要，可以支持更多位数。如：1.0.0.1，1.0.0.1.1
 ```
 
-你也可以使用 [options.auto](#options.auto) 来实现自动更新版本。
+也可以使用 [options.auto](#options.auto) 来实现自动更新版本。
 
 工程配置文件
 
