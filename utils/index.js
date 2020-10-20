@@ -4,6 +4,7 @@
  */
 
 const path = require('path')
+const url = require('url')
 const pupa = require('./pupa')
 
 exports.join = path.join
@@ -21,7 +22,7 @@ exports.resolveWebpackEntry = (webpackEntry, opts = {}) => {
   if (isObject(webpackEntry)) {
     return {
       ...webpackEntry,
-      [opts.NAME]: opts.filePath
+      [opts.NAME]: opts.filePath,
     }
   }
 
@@ -37,7 +38,7 @@ exports.resolveWebpackEntry = (webpackEntry, opts = {}) => {
   return {
     // 默认 main
     main: webpackEntry,
-    [opts.NAME]: opts.filePath
+    [opts.NAME]: opts.filePath,
   }
 }
 
@@ -54,8 +55,8 @@ exports.replaceStr = (content, replaceStrMap = {}) => {
 exports.correctPath = (publicPath, ...args) => {
   let p = path.join(publicPath, ...args)
 
-  if (publicPath.slice(0, 2) === '//') {
-    p = '/' + p
+  if (publicPath.startsWith('http') || publicPath.startsWith('//')) {
+    p = url.resolve(publicPath, ...args)
   }
 
   return p
