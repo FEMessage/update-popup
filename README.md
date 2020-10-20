@@ -45,20 +45,22 @@ Environment variables
 UPDATE_POPUP_VERSION=1.0.0 # Support more. e.g.: 1.0.0.1, 1.0.0.1.1
 ```
 
+You can also use [options.auto](#options.auto) to implement automatic update version.
+
 Project configuration file
 
 ```js
 // nuxt.config.js
 const config = {
-  modules: ['@femessage/update-popup/nuxt', {options}],
+  modules: ['@femessage/update-popup/nuxt', {options}]
 }
 
 // vue.config.js or poi.config.js
 const UpdatePopup = require('@femessage/update-popup')
 const config = {
-  chainWebpack: (config) => {
+  chainWebpack: config => {
     config.plugin('femessage-update-popup').use(UpdatePopup, [{options}])
-  },
+  }
 }
 ```
 
@@ -77,6 +79,28 @@ It's so easy.
 Use publicPath setting
 
 [⬆ Back to Top](#table-of-contents)
+
+### options.auto
+
+- Type: `boolean`
+- Default: `false`
+
+automatic update version，need to configure `options.versionType`.
+
+**Note**：If true，the environment variable `UPDATE_POPUP_VERSION` No longer takes effect.
+
+### options.versionType
+
+- Type: `'timestamp'`
+- Default: `timestamp`
+
+The way of automatically generated version，values：
+
+- `timestamp`:
+
+  Using the current timestamp，it looks like this: `1603184005919.0.0`. it was put in the first place to ensure that it would always be bigger than the previous version.
+
+  **Note**：this will lose the control of version semantics.
 
 ### options.inject
 
@@ -167,6 +191,7 @@ Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/d
 
 <!-- markdownlint-enable -->
 <!-- prettier-ignore-end -->
+
 <!-- ALL-CONTRIBUTORS-LIST:END -->
 
 This project follows the [all-contributors](https://github.com/all-contributors/all-contributors) specification. Contributions of any kind welcome!

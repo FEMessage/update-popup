@@ -9,6 +9,8 @@
  *  inject?: boolean
  *  envKey?: string
  *  versionFileName?: string
+ *  auto?: boolean
+ *  versionType?: string
  * }} UpdatePopupOptions
  */
 
@@ -28,6 +30,8 @@ const readFile = filePath => fs.readFileSync(filePath, 'utf8')
 
 const NAME = 'femessage-update-popup'
 
+const VERSION_TYPES = ['timestamp']
+
 class UpdatePopup {
   /** @param {UpdatePopupOptions} options */
   constructor(options) {
@@ -36,12 +40,31 @@ class UpdatePopup {
         publicPath: '',
         inject: true, // 自动注入到 webpack.entry
         envKey: 'UPDATE_POPUP_VERSION',
-        versionFileName: 'update_popup_version.txt'
+        versionFileName: 'update_popup_version.txt',
+        auto: false, // 是否自动生成 version
+        versionType: 'timestamp' // 自动生成的 version 的方式
       },
       options
     )
 
-    this.version = process.env[this.options.envKey] || '1.0.0'
+    if (this.options.auto) {
+      if (!VERSION_TYPES.includes(this.options.versionType)) {
+        console.warn(
+          `Unknown versionType: ${this.options.versionType}. Falling back to timestamp`
+        )
+        this.options.versionType = 'timestamp'
+      }
+
+      switch (this.options.versionType) {
+        case 'timestamp':
+          this.version = `${Date.now()}.0.0`
+          break
+        default:
+          break
+      }
+    } else {
+      this.version = process.env[this.options.envKey] || '1.0.0'
+    }
   }
 
   /** @type {(compiler: import('webpack').Compiler) => void} */
