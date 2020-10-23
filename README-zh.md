@@ -45,6 +45,8 @@ yarn add @femessage/update-popup
 UPDATE_POPUP_VERSION=1.0.0 # 如果有必要，可以支持更多位数。如：1.0.0.1，1.0.0.1.1
 ```
 
+也可以使用 [options.auto](#options.auto) 来实现自动更新版本。
+
 工程配置文件
 
 ```js
@@ -77,6 +79,28 @@ const config = {
 使用独立的 publicPath，一般情况下不需要设置此参数。
 
 [⬆ Back to Top](#table-of-contents)
+
+### options.auto
+
+- Type: `boolean`
+- Default: `false`
+
+是否需要自动更新版本，需要配合 `options.versionType` 一起使用。
+
+**注意**：开启此功能，环境变量 `UPDATE_POPUP_VERSION` 则不会再生效。
+
+### options.versionType
+
+- Type: `'timestamp' | 未来支持更多`
+- Default: `timestamp`
+
+自动生成的 version 的方式，可选值：
+
+- `timestamp`:
+
+  使用当前时间戳，它看上去是这样的：`1603184005919.0.0`，把时间戳放在版本号的第一位，是为了保证无论如何都会大于已有的版本。
+
+  **注意**：这将失去版本语义化的控制。
 
 ### options.inject
 
