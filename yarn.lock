@@ -802,11 +802,6 @@
     exec-sh "^0.3.2"
     minimist "^1.2.0"
 
-"@evillt/toast@^1.3.1":
-  version "1.3.1"
-  resolved "https://registry.yarnpkg.com/@evillt/toast/-/toast-1.3.1.tgz#460670e1ffc5ca768e01444300df15148f60de29"
-  integrity sha512-KM7HLCwoYFnjTTxki8GfHwi+tdQJ2seEUSwgLiNr4/7Sv2vsHbeqCc46eE+pfvwonqPtrOBQn0ZMyA2wFZ18xg==
-
 "@femessage/github-release-notes@^0.19.0":
   version "0.19.0"
   resolved "https://registry.npm.taobao.org/@femessage/github-release-notes/download/@femessage/github-release-notes-0.19.0.tgz#483767c6a52d3a1086000442580503fed72a0898"
@@ -7631,6 +7626,11 @@ validate-npm-package-name@^3.0.0, validate-npm-package-name@~3.0.0:
   integrity sha1-X6kS2B630MdK/BQN5zF/DKffQ34=
   dependencies:
     builtins "^1.0.3"
+
+vercel-toast@^1.4.0:
+  version "1.4.0"
+  resolved "https://registry.npm.taobao.org/vercel-toast/download/vercel-toast-1.4.0.tgz#d1aff4dd4a46e14db7cc74a8e9fe8a527e7e2756"
+  integrity sha1-0a/03UpG4U23zHSo6f6KUn5+J1Y=
 
 verror@1.10.0:
   version "1.10.0"
