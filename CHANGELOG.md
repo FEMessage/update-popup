@@ -2,6 +2,20 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.1.0](https://github.com/FEMessage/update-popup/compare/v1.0.4...v1.1.0) (2020-10-23)
+
+
+### Bug Fixes
+
+* 兼容 publicPath 为绝对路径的 url 的情况 ([#27](https://github.com/FEMessage/update-popup/issues/27)) ([5320a20](https://github.com/FEMessage/update-popup/commit/5320a20))
+
+
+### Features
+
+* 自动更新版本号 ([#29](https://github.com/FEMessage/update-popup/issues/29)) ([8b7c729](https://github.com/FEMessage/update-popup/commit/8b7c729))
+
+
+
 ### [1.0.4](https://github.com/FEMessage/update-popup/compare/v1.0.3...v1.0.4) (2020-08-25)
 
 
