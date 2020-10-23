@@ -30,7 +30,9 @@ const readFile = filePath => fs.readFileSync(filePath, 'utf8')
 
 const NAME = 'femessage-update-popup'
 
-const VERSION_TYPES = ['timestamp']
+const VERSION_TYPES = {
+  TIMESTAMP: 'timestamp'
+}
 
 class UpdatePopup {
   /** @param {UpdatePopupOptions} options */
@@ -42,7 +44,7 @@ class UpdatePopup {
         envKey: 'UPDATE_POPUP_VERSION',
         versionFileName: 'update_popup_version.txt',
         auto: false, // 是否自动生成 version
-        versionType: 'timestamp' // 自动生成的 version 的方式
+        versionType: VERSION_TYPES.TIMESTAMP // 自动生成的 version 的方式
       },
       options
     )
@@ -50,13 +52,13 @@ class UpdatePopup {
     if (this.options.auto) {
       if (!VERSION_TYPES.includes(this.options.versionType)) {
         console.warn(
-          `Unknown versionType: ${this.options.versionType}. Falling back to timestamp`
+          `Unknown versionType: ${this.options.versionType}. Falling back to ${VERSION_TYPES.TIMESTAMP}`
         )
-        this.options.versionType = 'timestamp'
+        this.options.versionType = VERSION_TYPES.TIMESTAMP
       }
 
       switch (this.options.versionType) {
-        case 'timestamp':
+        case VERSION_TYPES.TIMESTAMP:
           this.version = `${Date.now()}.0.0`
           break
         default:
