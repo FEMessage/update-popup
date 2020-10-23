@@ -87,11 +87,11 @@ Use publicPath setting
 
 set `options.versionType` to make updated version code automatic
 
-**Note**：If true，the environment variable `UPDATE_POPUP_VERSION` No longer takes effect.
+**Note**：If true，the environment variable `UPDATE_POPUP_VERSION` doesn't work.
 
 ### options.versionType
 
-- Type: `'timestamp'`
+- Type: `'timestamp' | Support more...`
 - Default: `timestamp`
 
 The way of automatically generated version，values：

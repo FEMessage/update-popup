@@ -91,7 +91,7 @@ const config = {
 
 ### options.versionType
 
-- Type: `'timestamp'`
+- Type: `'timestamp' | 未来支持更多`
 - Default: `timestamp`
 
 自动生成的 version 的方式，可选值：
