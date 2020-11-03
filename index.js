@@ -50,10 +50,13 @@ class UpdatePopup {
     )
 
     if (this.options.auto) {
-      if (!VERSION_TYPES.includes(this.options.versionType)) {
-        console.warn(
-          `Unknown versionType: ${this.options.versionType}. Falling back to ${VERSION_TYPES.TIMESTAMP}`
-        )
+      if (!VERSION_TYPES[this.options.versionType]) {
+        if (process.env.NODE_ENV === 'production') {
+          console.warn(
+            `Unknown versionType: ${this.options.versionType}. Falling back to ${VERSION_TYPES.TIMESTAMP}`
+          )
+        }
+
         this.options.versionType = VERSION_TYPES.TIMESTAMP
       }
 
