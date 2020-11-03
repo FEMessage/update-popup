@@ -50,7 +50,7 @@ class UpdatePopup {
     )
 
     if (this.options.auto) {
-      if (!VERSION_TYPES.includes(this.options.versionType)) {
+      if (!Object.values(VERSION_TYPES).includes(this.options.versionType)) {
         console.warn(
           `Unknown versionType: ${this.options.versionType}. Falling back to ${VERSION_TYPES.TIMESTAMP}`
         )
