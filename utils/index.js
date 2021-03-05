@@ -3,6 +3,7 @@
  * @typedef {{[k:string]: any}} obj
  */
 
+const os = require('os')
 const path = require('path')
 const url = require('url')
 const pupa = require('./pupa')
@@ -54,6 +55,10 @@ exports.replaceStr = (content, replaceStrMap = {}) => {
  */
 exports.correctPath = (publicPath, ...args) => {
   let p = path.join(publicPath, ...args)
+  // Windows_NT 系统 替换分隔符 '\' -> '/' 
+  if (os.type().indexOf('Windows') != -1) {
+    p = p.split(path.sep).join('/')
+  }
 
   if (publicPath.startsWith('http') || publicPath.startsWith('//')) {
     p = url.resolve(publicPath, ...args)
