@@ -53,8 +53,8 @@ Project configuration file
 // nuxt.config.js
 const config = {
   modules: [
-	  ['@femessage/update-popup/nuxt', {auto: true}]
-	]
+    ['@femessage/update-popup/nuxt', {auto: true}]
+  ]
 }
 
 // vue.config.js or poi.config.js
