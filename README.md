@@ -35,6 +35,7 @@ yarn add @femessage/update-popup
 [⬆ Back to Top](#table-of-contents)
 
 ## Usage
+### popup.txt
 
 You need to set environment variables `UPDATE_POPUP_VERSION`, when iteratively updating, modify the variables greater than current value.
 
@@ -45,9 +46,11 @@ Environment variables
 UPDATE_POPUP_VERSION=1.0.0 # Support more. e.g.: 1.0.0.1, 1.0.0.1.1
 ```
 
-You can also use [auto](#auto) to implement automaticly update version.
+You may use [auto](#auto) to ignore this.
 
-Project configuration file
+### popup.js
+
+Project configurations:
 
 ```js
 // nuxt.config.js
@@ -56,7 +59,9 @@ const config = {
     ['@femessage/update-popup/nuxt', {auto: true}]
   ]
 }
+```
 
+```js
 // vue.config.js 
 // poi.config.js 
 // .umirc.ts
@@ -65,7 +70,11 @@ const config = {
     config.plugin('femessage-update-popup').use(require('@femessage/update-popup'), [{auto: true}])
   }
 }
+
+// and remember add import in your App.js
+import '@femessage/update-popup/app/main'
 ```
+
 
 It's so easy.
 
