@@ -58,10 +58,9 @@ const config = {
 }
 
 // vue.config.js or poi.config.js
-const UpdatePopup = require('@femessage/update-popup')
 const config = {
   chainWebpack: config => {
-    config.plugin('femessage-update-popup').use(UpdatePopup, [{options}])
+    config.plugin('femessage-update-popup').use(require('@femessage/update-popup'), [{auto: true}])
   }
 }
 ```
