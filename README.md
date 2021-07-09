@@ -57,7 +57,9 @@ const config = {
   ]
 }
 
-// vue.config.js or poi.config.js or umi
+// vue.config.js 
+// poi.config.js 
+// .umirc.ts
 const config = {
   chainWebpack: config => {
     config.plugin('femessage-update-popup').use(require('@femessage/update-popup'), [{auto: true}])
