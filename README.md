@@ -72,6 +72,7 @@ const config = {
 }
 
 // and remember add import in your App.js
+// you may need to ignore IDE's warning
 import '@femessage/update-popup/app/main'
 ```
 
