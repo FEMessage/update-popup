@@ -35,6 +35,7 @@ yarn add @femessage/update-popup
 [⬆ Back to Top](#table-of-contents)
 
 ## Usage
+### popup.txt
 
 You need to set environment variables `UPDATE_POPUP_VERSION`, when iteratively updating, modify the variables greater than current value.
 
@@ -45,24 +46,36 @@ Environment variables
 UPDATE_POPUP_VERSION=1.0.0 # Support more. e.g.: 1.0.0.1, 1.0.0.1.1
 ```
 
-You can also use [options.auto](#options.auto) to implement automatic update version.
+You may use [auto](#auto) to ignore this.
 
-Project configuration file
+### popup.js
+
+Project configurations:
 
 ```js
 // nuxt.config.js
 const config = {
-  modules: ['@femessage/update-popup/nuxt', {options}]
-}
-
-// vue.config.js or poi.config.js
-const UpdatePopup = require('@femessage/update-popup')
-const config = {
-  chainWebpack: config => {
-    config.plugin('femessage-update-popup').use(UpdatePopup, [{options}])
-  }
+  modules: [
+    ['@femessage/update-popup/nuxt', {auto: true}]
+  ]
 }
 ```
+
+```js
+// vue.config.js 
+// poi.config.js 
+// .umirc.ts
+const config = {
+  chainWebpack: config => {
+    config.plugin('femessage-update-popup').use(require('@femessage/update-popup'), [{auto: true}])
+  }
+}
+
+// and remember add import in your App.js
+// you may need to ignore IDE's warning
+import '@femessage/update-popup/app/main'
+```
+
 
 It's so easy.
 
@@ -70,7 +83,7 @@ It's so easy.
 
 ## Options
 
-### options.publicPath
+### publicPath
 
 - Type: `string`
 - Default: `webpackConfig.output.publicPath`
@@ -80,16 +93,16 @@ Use publicPath setting
 
 [⬆ Back to Top](#table-of-contents)
 
-### options.auto
+### auto
 
 - Type: `boolean`
 - Default: `false`
 
-set `options.versionType` to make updated version code automatic
+to make updated version code automaticly
 
 **Note**：If true，the environment variable `UPDATE_POPUP_VERSION` doesn't work.
 
-### options.versionType
+### versionType
 
 - Type: `'timestamp' | Support more...`
 - Default: `timestamp`
@@ -102,7 +115,7 @@ The way of automatically generated version，values：
 
   **Note**：this will lose the control of version semantics.
 
-### options.inject
+### inject
 
 - Type: `boolean`
 - Default: `true`
@@ -111,14 +124,14 @@ Does it need to be automatically added to the webpack entry file?
 If set `false` Need to manually `@femessage/update-popup/app/main` Inject it into your code.
 When to set this parameter, see [Notice.QianKun](#qiankun)。
 
-### options.envKey
+### envKey
 
 - Type: `string`
 - Default: `'UPDATE_POPUP_VERSION'`
 
 Key of the environment variable. e.g. `process.env.UPDATE_POPUP_VERSION=1.0.0`
 
-### options.versionFileName
+### versionFileName
 
 - Type: `string`
 - Default: `'update_popup_version.txt'`
