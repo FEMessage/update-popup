@@ -1,6 +1,6 @@
 {
   "name": "@femessage/update-popup",
-  "version": "1.1.2",
+  "version": "1.1.3",
   "description": "Display an update message at right bottom",
   "author": "https://github.com/FEMessage",
   "license": "MIT",
