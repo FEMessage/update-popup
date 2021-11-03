@@ -80,6 +80,7 @@ export function compareVersion(newVersion, currentVersion) {
 
     for (let i = 0; i <= n.length; i++) {
       if (Number(n[i]) > Number(c[i])) return true
+      else if (Number(n[i]) < Number(c[i])) return false
     }
   }
 
