@@ -1,11 +1,12 @@
+// @ts-ignore
+// This file will cheat as virtual js file
+
 import 'vercel-toast/dist/vercel-toast.css'
 import {createToast} from 'vercel-toast'
 
 main()
 
 function main() {
-  if (process.env.NODE_ENV !== 'production') return
-
   // 当前应用版本
   const currentVersion = '{{currentVersion}}'
   // 上次访问时间 ms
@@ -52,13 +53,15 @@ function main() {
       // 防止10秒之内频繁切换
       if (currentMS - lastSeenMS > OneSecondMS * 10) {
         dispatch('immediate')
-        dispatch('startInterval', {interval: OneSecondMS * 60 * 60})
+        dispatch('startInterval', {
+          interval: OneSecondMS * 60 * 60
+        })
       }
     }
   }
 
   function fetchVersion() {
-    fetch('{{VERSION_FILE_PATH}}' + '?_=' + Date.now())
+    fetch('{{versionFilePath}}?_=' + Date.now())
       .then(res => res.text())
       .then(version => {
         if (compareVersion((version || '').trim(), currentVersion)) {
@@ -76,7 +79,7 @@ export function compareVersion(newVersion, currentVersion) {
     const c = currentVersion.split('.')
 
     for (let i = 0; i <= n.length; i++) {
-      if (Number(n[i]) > Number(c[i] || 0)) return true
+      if (Number(n[i]) > Number(c[i])) return true
     }
   }
 
@@ -102,5 +105,8 @@ function createInterval(callback) {
     fn(data)
   }
 
-  return {interval, dispatch}
+  return {
+    interval,
+    dispatch
+  }
 }
