@@ -1,5 +1,3 @@
-// nuxt doesn't work for now
-
 import {Options} from './types'
 import unplugin from '.'
 
