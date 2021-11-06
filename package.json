@@ -64,7 +64,7 @@
     "play": "npm -C playground run dev",
     "prepublishOnly": "npm run build",
     "start": "esno src/index.ts",
-    "test": "jest",
+    "test": "jest --verbose",
     "test:update": "jest -u"
   },
   "dependencies": {
