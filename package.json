@@ -54,8 +54,10 @@
     "*.d.ts"
   ],
   "scripts": {
+    "test": "jest --verbose",
+    "test:update": "jest -u",
     "stdver": "standard-version -m '[skip ci] chore(release): v%s'",
-    "release": "bumpp --commit --push --tag && pnpm publish",
+    "release": "gren release --override",
     "build": "rimraf dist && tsup 'src/*.{ts,js}' --dts --format cjs,esm",
     "dev": "tsup --watch src",
     "build:fix": "esno scripts/postbuild.ts",
@@ -63,9 +65,7 @@
     "lint:fix": "npm run lint -- --fix",
     "play": "npm -C playground run dev",
     "prepublishOnly": "npm run build",
-    "start": "esno src/index.ts",
-    "test": "jest --verbose",
-    "test:update": "jest -u"
+    "start": "esno src/index.ts"
   },
   "dependencies": {
     "@rollup/pluginutils": "^4.1.1",
