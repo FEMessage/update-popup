@@ -7,11 +7,9 @@
 [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)](https://github.com/FEMessage/update-popup/pulls)
 [![Automated Release Notes by gren](https://img.shields.io/badge/%F0%9F%A4%96-release%20notes-00B2EE.svg)](https://github-tools.github.io/github-release-notes/)
 
-<center>
-
-![](https://user-images.githubusercontent.com/19513289/140611646-63c88598-5186-433e-bab0-70011ac08504.gif)
-
-</center>
+<p align="center">
+  <img src="https://user-images.githubusercontent.com/19513289/140611646-63c88598-5186-433e-bab0-70011ac08504.gif" />
+</p>
 
 ## Table of Contents
 
