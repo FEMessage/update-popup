@@ -169,6 +169,18 @@ UpdatePopup({
 
 `xxx.config.js` see [Install](#install).
 
+```diff
+UpdatePopup({
+- publicPath: '/',
++ publicBasePath: '/',
+
+- auto: true,
++ versionType: 'auto',
+
+- inject: false,
+})
+```
+
 [⬆ Back to Top](#table-of-contents)
 
 ## Contributing
