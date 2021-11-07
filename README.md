@@ -125,6 +125,8 @@ module.exports = {
 
 ## Options
 
+The following show the default values and description.
+
 ````ts
 UpdatePopup({
   // Similar to `publicDir` in vite, `publicPath` in webpack.
