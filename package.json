@@ -116,7 +116,7 @@
       "prettier --write",
       "git add"
     ],
-    "*.js": [
+    "*.[tj]s": [
       "prettier --write",
       "git add"
     ]
