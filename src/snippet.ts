@@ -9,8 +9,6 @@ main()
 function main() {
   // 当前应用版本
   const currentVersion = '{{currentVersion}}'
-  // 上次激活页面时间 ms
-  let lastActiveMS = 0
   // 上次页面离开时间 ms
   let lastSeenMS = 0
   // 弹出框是否显示
@@ -50,17 +48,17 @@ function main() {
   function checker() {
     if (popupFlag) return
 
-    // 防止 10 秒内频繁切换次页面
-    if (lastActiveMS - lastSeenMS > OneSecondMS * 10) return
-
     if (document.hidden) {
       // 离开时记录时间
       lastSeenMS = Date.now()
       stopInterval()
     } else {
-      // 激活时记录时间
-      lastActiveMS = Date.now()
-      startInterval()
+      const currentMS = Date.now()
+
+      // 防止 10 秒内频繁切换次页面
+      if (currentMS - lastSeenMS > OneSecondMS * 10) {
+        startInterval()
+      }
     }
   }
 
