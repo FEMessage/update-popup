@@ -152,6 +152,12 @@ UpdatePopup({
   // 例如： `1.0.1`, `1.0.0.1.1`
   // ```
   versionType: 'auto'
+
+  // 弹出框信息文本
+  popupMessage: '发现新版本可用',
+
+  // 弹出框刷新按钮文本
+  popupActionText: '刷新'
 })
 ````
 

@@ -152,7 +152,13 @@ UpdatePopup({
   // UPDATE_POPUP_VERSION = 1.0.0
   // e.g. `1.0.1`, `1.0.0.1.1`
   // ```
-  versionType: 'auto'
+  versionType: 'auto',
+
+  // Popup message
+  popupMessage: '发现新版本可用',
+
+  // Popup refresh action text
+  popupActionText: '刷新'
 })
 ````
 
