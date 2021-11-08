@@ -13,6 +13,8 @@ export default createUnplugin<Options>((options = {}) => {
     envKey = 'UPDATE_POPUP_VERSION',
     versionFileName = 'update_popup_version.txt',
     versionType = 'auto'
+    popupMessage = '发现新版本可用',
+    popupActionText = '刷新'
   } = options
   let {publicBasePath = ''} = options
 
@@ -42,7 +44,9 @@ export default createUnplugin<Options>((options = {}) => {
           currentVersion,
           versionFilePath: resolveVersionFilePath(
             publicBasePath,
-            versionFileName
+            versionFileName,
+            popupMessage,
+            popupActionText
           )
         })
       }

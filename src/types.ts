@@ -13,4 +13,12 @@ export interface Options {
    */
   versionFileName?: string
   versionType?: 'auto' | 'env'
+  /**
+   * @default '发现新版本可用'
+   */
+  popupMessage?: string
+  /**
+   * @default '刷新'
+   */
+  popupActionText?: string
 }

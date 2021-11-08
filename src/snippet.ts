@@ -36,9 +36,9 @@ function main() {
 
     // 延后 1 秒显示以使得没有那么唐突
     setTimeout(() => {
-      createToast('发现新版本可用', {
+      createToast('{{popupMessage}}', {
         action: {
-          text: '刷新',
+          text: '{{popupActionText}}',
           callback: () => {
             window.location.reload()
           }
