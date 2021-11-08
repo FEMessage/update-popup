@@ -12,7 +12,7 @@ export default createUnplugin<Options>((options = {}) => {
   const {
     envKey = 'UPDATE_POPUP_VERSION',
     versionFileName = 'update_popup_version.txt',
-    versionType = 'auto'
+    versionType = 'auto',
     popupMessage = '发现新版本可用',
     popupActionText = '刷新'
   } = options
