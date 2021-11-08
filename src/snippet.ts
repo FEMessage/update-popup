@@ -1,29 +1,29 @@
-// @ts-nocheck
 // This file will cheat as virtual js file
 
 import 'vercel-toast/dist/vercel-toast.css'
-import {
-  createToast
-} from 'vercel-toast'
-import {
-  compareVersion
-} from './helpers/compareVersion'
+import {createToast} from 'vercel-toast'
+import {compareVersion} from './helpers/compareVersion'
 
 main()
 
 function main() {
   // 当前应用版本
   const currentVersion = '{{currentVersion}}'
-  // 上次访问时间 ms
+  // 上次激活页面时间 ms
+  let lastActiveMS = 0
+  // 上次页面离开时间 ms
   let lastSeenMS = 0
+  // 弹出框是否显示
+  let popupFlag = false
   // 一秒 ms
   const OneSecondMS = 1000
 
-  const {
-    dispatch
-  } = createInterval(fetchVersion)
-
-  let popupFlag = false
+  // 每小时检测新版本
+  const {startInterval, stopInterval} = createInterval(
+    fetchVersion,
+    OneSecondMS * 60 * 60,
+    {immediateCallback: true}
+  )
 
   checker()
 
@@ -32,7 +32,7 @@ function main() {
   function showRefreshPopup() {
     popupFlag = true
 
-    dispatch('stopInterval')
+    stopInterval()
 
     // 延后 1 秒显示以使得没有那么唐突
     setTimeout(() => {
@@ -50,20 +50,17 @@ function main() {
   function checker() {
     if (popupFlag) return
 
-    if (document.hidden) {
-      // 离开时
-      lastSeenMS = Date.now()
-      dispatch('stopInterval')
-    } else {
-      const currentMS = Date.now()
+    // 防止 10 秒内频繁切换次页面
+    if (lastActiveMS - lastSeenMS > OneSecondMS * 10) return
 
-      // 防止10秒之内频繁切换
-      if (currentMS - lastSeenMS > OneSecondMS * 10) {
-        dispatch('immediate')
-        dispatch('startInterval', {
-          interval: OneSecondMS * 60 * 60
-        })
-      }
+    if (document.hidden) {
+      // 离开时记录时间
+      lastSeenMS = Date.now()
+      stopInterval()
+    } else {
+      // 激活时记录时间
+      lastActiveMS = Date.now()
+      startInterval()
     }
   }
 
@@ -79,27 +76,36 @@ function main() {
   }
 }
 
-function createInterval(callback) {
-  let interval
+// inspired by vueuse's `useIntervalFn`
+function createInterval(
+  cb: Function,
+  interval: number = 1000,
+  options: {immediateCallback?: boolean} = {}
+) {
+  let timer: number | null = null
+  const {immediateCallback = true} = options
 
-  const startInterval = data => {
-    interval = setInterval(callback, data.interval)
+  function clean() {
+    if (timer) {
+      clearInterval(timer)
+      timer = null
+    }
   }
-  const stopInterval = () => clearInterval(interval)
 
-  const cmd = {
-    immediate: callback,
-    startInterval,
-    stopInterval
+  function startInterval() {
+    if (immediateCallback) {
+      cb()
+    }
+    clean()
+    timer = setInterval(cb, interval)
   }
 
-  const dispatch = (command, data = {}) => {
-    const fn = cmd[command] || (() => {})
-    fn(data)
+  function stopInterval() {
+    clean()
   }
 
   return {
-    interval,
-    dispatch
+    startInterval,
+    stopInterval
   }
 }
