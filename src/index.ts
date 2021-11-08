@@ -44,10 +44,10 @@ export default createUnplugin<Options>((options = {}) => {
           currentVersion,
           versionFilePath: resolveVersionFilePath(
             publicBasePath,
-            versionFileName,
-            popupMessage,
-            popupActionText
-          )
+            versionFileName
+          ),
+          popupMessage,
+          popupActionText
         })
       }
     },
