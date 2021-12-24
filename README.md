@@ -8,7 +8,7 @@
 [![Automated Release Notes by gren](https://img.shields.io/badge/%F0%9F%A4%96-release%20notes-00B2EE.svg)](https://github-tools.github.io/github-release-notes/)
 
 <p align="center">
-  <img src="https://user-images.githubusercontent.com/19513289/140611646-63c88598-5186-433e-bab0-70011ac08504.gif" />
+  <img src="https://user-images.githubusercontent.com/19513289/147315981-e64ac6ed-85d9-4c3c-ae18-cb066f25863c.gif" />
 </p>
 
 ## Table of Contents
