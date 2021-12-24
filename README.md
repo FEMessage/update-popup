@@ -7,6 +7,8 @@
 [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)](https://github.com/FEMessage/update-popup/pulls)
 [![Automated Release Notes by gren](https://img.shields.io/badge/%F0%9F%A4%96-release%20notes-00B2EE.svg)](https://github-tools.github.io/github-release-notes/)
 
+[中文文档](./README-zh.md)
+
 <p align="center">
   <img src="https://user-images.githubusercontent.com/19513289/147315981-e64ac6ed-85d9-4c3c-ae18-cb066f25863c.gif" />
 </p>
@@ -46,8 +48,8 @@ export default defineConfig({
   plugins: [
     UpdatePopup({
       /* options */
-    })
-  ]
+    }),
+  ],
 })
 ```
 
@@ -65,8 +67,8 @@ module.exports = {
   plugins: [
     require('@femessage/update-popup/webpack')({
       /* options */
-    })
-  ]
+    }),
+  ],
 }
 ```
 
@@ -84,17 +86,17 @@ export default {
   plugins: [
     {
       src: '~/plugins/update-popup',
-      mode: 'client'
-    }
+      mode: 'client',
+    },
   ],
   buildModules: [
     [
       '@femessage/update-popup/nuxt',
       {
         /* options */
-      }
-    ]
-  ]
+      },
+    ],
+  ],
 }
 ```
 
@@ -113,9 +115,9 @@ module.exports = {
     plugins: [
       require('@femessage/update-popup/webpack')({
         /* options */
-      })
-    ]
-  }
+      }),
+    ],
+  },
 }
 ```
 
@@ -158,7 +160,7 @@ UpdatePopup({
   popupMessage: '发现新版本可用',
 
   // Popup refresh action text
-  popupActionText: '刷新'
+  popupActionText: '刷新',
 })
 ````
 
