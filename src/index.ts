@@ -7,14 +7,17 @@ import {name} from '../package.json'
 import {resolveVersionFilePath} from './utils/resolveVersionFilePath'
 
 export default createUnplugin<Options>((options = {}) => {
-  const virtualFileEntry = '@update-popup'
+  const virtualModuleId = '@update-popup'
+  // @see https://vitejs.dev/guide/api-plugin.html#conventions
+  // Internally, plugins that use virtual modules should prefix the module ID with \0 while resolving the id, a convention from the rollup ecosystem.
+  const resolvedVirtualModuleId = '\0' + virtualModuleId
 
   const {
     envKey = 'UPDATE_POPUP_VERSION',
     versionFileName = 'update_popup_version.txt',
     versionType = 'auto',
     popupMessage = '发现新版本可用',
-    popupActionText = '刷新'
+    popupActionText = '刷新',
   } = options
   let {publicBasePath = ''} = options
 
@@ -31,12 +34,14 @@ export default createUnplugin<Options>((options = {}) => {
     name,
     enforce: 'post',
     resolveId(id) {
-      if (id === virtualFileEntry) {
-        return virtualFileEntry
+      if (id === virtualModuleId) {
+        return resolvedVirtualModuleId
       }
+
+      return null
     },
     async load(id) {
-      if (id === virtualFileEntry) {
+      if (id === resolvedVirtualModuleId) {
         const code = await readFile(path.join(__dirname, 'snippet.mjs'))
 
         return pupa(code, {
@@ -47,7 +52,7 @@ export default createUnplugin<Options>((options = {}) => {
             versionFileName
           ),
           popupMessage,
-          popupActionText
+          popupActionText,
         })
       }
     },
@@ -72,7 +77,7 @@ export default createUnplugin<Options>((options = {}) => {
         const p = options.dir
         if (!p) return
         await writeVersionFile(p)
-      }
-    }
+      },
+    },
   }
 })
