@@ -8,8 +8,8 @@ import {resolveVersionFilePath} from './utils/resolveVersionFilePath'
 
 export default createUnplugin<Options>((options = {}) => {
   const virtualModuleId = '@update-popup'
-  // @see https://vitejs.dev/guide/api-plugin.html#conventions
   // Internally, plugins that use virtual modules should prefix the module ID with \0 while resolving the id, a convention from the rollup ecosystem.
+  // @see https://vitejs.dev/guide/api-plugin.html#conventions
   const resolvedVirtualModuleId = '\0' + virtualModuleId
 
   const {
