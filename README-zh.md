@@ -46,8 +46,8 @@ export default defineConfig({
   plugins: [
     UpdatePopup({
       /* options */
-    })
-  ]
+    }),
+  ],
 })
 ```
 
@@ -65,8 +65,8 @@ module.exports = {
   plugins: [
     require('@femessage/update-popup/webpack')({
       /* options */
-    })
-  ]
+    }),
+  ],
 }
 ```
 
@@ -84,17 +84,17 @@ export default {
   plugins: [
     {
       src: '~/plugins/update-popup',
-      mode: 'client'
-    }
+      mode: 'client',
+    },
   ],
   buildModules: [
     [
       '@femessage/update-popup/nuxt',
       {
         /* options */
-      }
-    ]
-  ]
+      },
+    ],
+  ],
 }
 ```
 
@@ -113,9 +113,9 @@ module.exports = {
     plugins: [
       require('@femessage/update-popup/webpack')({
         /* options */
-      })
-    ]
-  }
+      }),
+    ],
+  },
 }
 ```
 
@@ -151,13 +151,13 @@ UpdatePopup({
   // UPDATE_POPUP_VERSION = 1.0.0
   // 例如： `1.0.1`, `1.0.0.1.1`
   // ```
-  versionType: 'auto'
+  versionType: 'auto',
 
   // 弹出框信息文本
   popupMessage: '发现新版本可用',
 
   // 弹出框刷新按钮文本
-  popupActionText: '刷新'
+  popupActionText: '刷新',
 })
 ````
 
@@ -208,7 +208,9 @@ Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/d
 <!-- markdownlint-disable -->
 <table>
   <tr>
-    <td align="center"><a href="https://evila.me/"><img src="https://avatars3.githubusercontent.com/u/19513289?v=4?s=100" width="100px;" alt=""/><br /><sub><b>EVILLT</b></sub></a><br /><a href="https://github.com/FEMessage/update-popup/commits?author=evillt" title="Code">💻</a> <a href="https://github.com/FEMessage/update-popup/commits?author=evillt" title="Tests">⚠️</a> <a href="#ideas-evillt" title="Ideas, Planning, & Feedback">🤔</a> <a href="https://github.com/FEMessage/update-popup/commits?author=evillt" title="Documentation">📖</a> <a href="#maintenance-evillt" title="Maintenance">🚧</a></td>
+    <td align="center"><a href="https://github.com/2nthony/"><img src="https://avatars3.githubusercontent.com/u/19513289?v=4?s=100" width="100px;" alt=""/><br /><sub><b>2nthony(formerly evillt)</b></sub></a><br /><a href="https://github.com/FEMessage/update-popup/commits?author=2nthony" title="Code">💻</a> <a href="https://github.com/FEMessage/update-popup/commits?author=evillt" title="Tests">⚠️</a> <a href="#ideas-evillt" title="Ideas, Planning, & Feedback">🤔</a> <a href="https://github.com/FEMessage/update-popup/commits?author=evillt" title="Documentation">📖</a> <a href="#maintenance-evillt" title="Maintenance">🚧</a></td>
+    <td align="center"><a href="https://4ark.me"><img src="https://avatars0.githubusercontent.com/u/27952659?v=4?s=100" width="100px;" alt=""/><br /><sub><b>4Ark</b></sub></a><br /><a href="https://github.com/FEMessage/update-popup/commits?author=gd4Ark" title="Documentation">📖</a> <a href="#translation-gd4Ark" title="Translation">🌍</a> <a href="https://github.com/FEMessage/update-popup/commits?author=gd4Ark" title="Code">💻</a> <a href="https://github.com/FEMessage/update-popup/issues?q=author%3Agd4Ark" title="Bug reports">🐛</a></td>
+    <td align="center"><a href="http://aa"><img src="https://avatars.githubusercontent.com/u/10540920?v=4?s=100" width="100px;" alt=""/><br /><sub><b>ynwshy</b></sub></a><br /><a href="https://github.com/FEMessage/update-popup/issues?q=author%3Aynwshy" title="Bug reports">🐛</a></td>
   </tr>
 </table>
 
