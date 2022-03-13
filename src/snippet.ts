@@ -39,8 +39,8 @@ function main() {
           text: '{{popupActionText}}',
           callback: () => {
             window.location.reload()
-          },
-        },
+          }
+        }
       })
     }, OneSecondMS)
   }
@@ -64,10 +64,10 @@ function main() {
 
   function fetchVersion() {
     fetch('{{versionFilePath}}?_=' + Date.now())
-      .then((res) => res.text())
-      .then((version) => {
+      .then(res => res.text())
+      .then(version => {
+        if (popupFlag) return
         if (compareVersion((version || '').trim(), currentVersion)) {
-          if (popupFlag) return
           showRefreshPopup()
         }
       })
@@ -104,6 +104,6 @@ function createInterval(
 
   return {
     startInterval,
-    stopInterval,
+    stopInterval
   }
 }
