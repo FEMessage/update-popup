@@ -48,8 +48,8 @@ export default defineConfig({
   plugins: [
     UpdatePopup({
       /* options */
-    }),
-  ],
+    })
+  ]
 })
 ```
 
@@ -67,8 +67,8 @@ module.exports = {
   plugins: [
     require('@femessage/update-popup/webpack')({
       /* options */
-    }),
-  ],
+    })
+  ]
 }
 ```
 
@@ -86,17 +86,17 @@ export default {
   plugins: [
     {
       src: '~/plugins/update-popup',
-      mode: 'client',
-    },
+      mode: 'client'
+    }
   ],
   buildModules: [
     [
       '@femessage/update-popup/nuxt',
       {
         /* options */
-      },
-    ],
-  ],
+      }
+    ]
+  ]
 }
 ```
 
@@ -115,9 +115,9 @@ module.exports = {
     plugins: [
       require('@femessage/update-popup/webpack')({
         /* options */
-      }),
-    ],
-  },
+      })
+    ]
+  }
 }
 ```
 
@@ -129,10 +129,14 @@ module.exports = {
 
 The following show the default values and description.
 
-````ts
+```ts
 UpdatePopup({
   // Similar to `publicDir` in vite, `publicPath` in webpack.
   publicBasePath: '',
+
+  // To make updated version code automaticly
+  // Note：If true，the environment variable UPDATE_POPUP_VERSION doesn't work.
+  auto: false,
 
   // Key of the environment variable.
   // e.g. `process.env.UPDATE_POPUP_VERSION = 1.0.0`
@@ -141,28 +145,19 @@ UpdatePopup({
   // Generate `update_popup_version.txt` to dist.
   versionFileName: 'update_popup_version.txt',
 
-  // The way of generated version, values:
-  // `auto`:
-  // Using the current timestamp, it looks like this: `1603184005919.0.0`.
-  // It was put in the first place to ensure that it would always be
-  // bigger than the previous version.
-  //
-  // `env`:
-  // You need to set environment variables `UPDATE_POPUP_VERSION`.
-  // When iteratively updating, modify the variables greater than current value.
-  // ```.env
-  // UPDATE_POPUP_VERSION = 1.0.0
-  // e.g. `1.0.1`, `1.0.0.1.1`
-  // ```
-  versionType: 'auto',
+  // The way of automatically generated version，values：
+  // timestamp:
+  // it was put in the first place to ensure that it would always be bigger than the previous version.
+  // Note：this will lose the control of version semantics.
+  versionType: 'timestamp',
 
   // Popup message
   popupMessage: '发现新版本可用',
 
   // Popup refresh action text
-  popupActionText: '刷新',
+  popupActionText: '刷新'
 })
-````
+```
 
 [⬆ Back to Top](#table-of-contents)
 

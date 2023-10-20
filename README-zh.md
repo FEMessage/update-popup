@@ -46,8 +46,8 @@ export default defineConfig({
   plugins: [
     UpdatePopup({
       /* options */
-    }),
-  ],
+    })
+  ]
 })
 ```
 
@@ -65,8 +65,8 @@ module.exports = {
   plugins: [
     require('@femessage/update-popup/webpack')({
       /* options */
-    }),
-  ],
+    })
+  ]
 }
 ```
 
@@ -84,17 +84,17 @@ export default {
   plugins: [
     {
       src: '~/plugins/update-popup',
-      mode: 'client',
-    },
+      mode: 'client'
+    }
   ],
   buildModules: [
     [
       '@femessage/update-popup/nuxt',
       {
         /* options */
-      },
-    ],
-  ],
+      }
+    ]
+  ]
 }
 ```
 
@@ -113,9 +113,9 @@ module.exports = {
     plugins: [
       require('@femessage/update-popup/webpack')({
         /* options */
-      }),
-    ],
-  },
+      })
+    ]
+  }
 }
 ```
 
@@ -127,10 +127,14 @@ module.exports = {
 
 这里显示默认值及其介绍。
 
-````ts
+```ts
 UpdatePopup({
   // 与 vite 的 `publicDir` 和 webpack 的 `publicPath` 相似.
   publicBasePath: '',
+
+  // 是否需要自动更新版本，需要配合 options.versionType 一起使用。
+  // 注意：开启此功能，环境变量 UPDATE_POPUP_VERSION 则不会再生效。
+  auto: false,
 
   // 环境变量的 key
   // 例如：`process.env.UPDATE_POPUP_VERSION = 1.0.0`
@@ -139,27 +143,19 @@ UpdatePopup({
   // 生成 `update_popup_version.txt` 到输出目录
   versionFileName: 'update_popup_version.txt',
 
-  // 生成版本号的方式
-  // `auto`:
-  // 使用当前时间戳，看上去会是这个样子 `1603184005919.0.0`
-  // 因此第一个值总是会大于上一次的值
-  //
-  // `env`:
-  // 你需要设置一个环境变量 `UPDATE_POPUP_VERSION`
-  // 当需要迭代更新时，修改这个值大于当前值即可
-  // ```.env
-  // UPDATE_POPUP_VERSION = 1.0.0
-  // 例如： `1.0.1`, `1.0.0.1.1`
-  // ```
-  versionType: 'auto',
+  // 自动生成的 version 的方式，可选值：
+  // timestamp:
+  // 使用当前时间戳，它看上去是这样的：1603184005919.0.0，把时间戳放在版本号的第一位，是为了保证无论如何都会大于已有的版本。
+  // 注意：这将失去版本语义化的控制。
+  versionType: 'timestamp',
 
   // 弹出框信息文本
   popupMessage: '发现新版本可用',
 
   // 弹出框刷新按钮文本
-  popupActionText: '刷新',
+  popupActionText: '刷新'
 })
-````
+```
 
 ## 从 `v1.1.3` 迁移
 
