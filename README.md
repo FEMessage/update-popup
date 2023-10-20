@@ -7,15 +7,17 @@
 [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)](https://github.com/FEMessage/update-popup/pulls)
 [![Automated Release Notes by gren](https://img.shields.io/badge/%F0%9F%A4%96-release%20notes-00B2EE.svg)](https://github-tools.github.io/github-release-notes/)
 
-![](https://user-images.githubusercontent.com/53422750/88611099-eb654b00-d0ba-11ea-89b9-ca92afc1078c.gif)
+[中文文档](./README-zh.md)
+
+<p align="center">
+  <img src="https://user-images.githubusercontent.com/19513289/147315981-e64ac6ed-85d9-4c3c-ae18-cb066f25863c.gif" />
+</p>
 
 ## Table of Contents
 
 - [Features](#features)
 - [Install](#install)
-- [Usage](#usage)
 - [Options](#options)
-- [Notice](#notice)
 - [Contributing](#contributing)
 - [Contributors](#contributors)
 - [License](#license)
@@ -32,145 +34,154 @@ Check if the current application is the latest version. If not, it reminds you t
 yarn add @femessage/update-popup
 ```
 
-[⬆ Back to Top](#table-of-contents)
+<details>
+<summary>Vite</summary>
 
-## Usage
-### popup.txt
+```ts
+// src/main.js
+import '@update-popup'
 
-You need to set environment variables `UPDATE_POPUP_VERSION`, when iteratively updating, modify the variables greater than current value.
+// vite.config.ts
+import UpdatePopup from '@femessage/update-popup/vite'
 
-Environment variables
-
-```bash
-# .env
-UPDATE_POPUP_VERSION=1.0.0 # Support more. e.g.: 1.0.0.1, 1.0.0.1.1
+export default defineConfig({
+  plugins: [
+    UpdatePopup({
+      /* options */
+    })
+  ]
+})
 ```
 
-You may use [auto](#auto) to ignore this.
+</details><br/>
 
-### popup.js
+<details>
+<summary>Webpack</summary>
 
-Project configurations:
+```ts
+// src/main.js
+import '@update-popup'
 
-```js
-// nuxt.config.js
-const config = {
-  modules: [
-    ['@femessage/update-popup/nuxt', {auto: true}]
+// webpack.config.ts
+module.exports = {
+  plugins: [
+    require('@femessage/update-popup/webpack')({
+      /* options */
+    })
   ]
 }
 ```
 
-```js
-// vue.config.js 
-// poi.config.js 
-// .umirc.ts
-const config = {
-  chainWebpack: config => {
-    config.plugin('femessage-update-popup').use(require('@femessage/update-popup'), [{auto: true}])
-  }
-}
+</details><br/>
 
-// and remember add import in your App.js
-// you may need to ignore IDE's warning
-import '@femessage/update-popup/app/main'
+<details>
+<summary>Nuxt2</summary>
+
+```ts
+// plugins/update-popup.js
+import '@update-popup'
+
+// nuxt.config.ts
+export default {
+  plugins: [
+    {
+      src: '~/plugins/update-popup',
+      mode: 'client'
+    }
+  ],
+  buildModules: [
+    [
+      '@femessage/update-popup/nuxt',
+      {
+        /* options */
+      }
+    ]
+  ]
+}
 ```
 
+</details><br/>
 
-It's so easy.
+<details>
+<summary>Vue CLI</summary>
+
+```ts
+// src/main.js
+import '@update-popup'
+
+// vue.config.ts
+module.exports = {
+  configureWebpack: {
+    plugins: [
+      require('@femessage/update-popup/webpack')({
+        /* options */
+      })
+    ]
+  }
+}
+```
+
+</details><br/>
 
 [⬆ Back to Top](#table-of-contents)
 
 ## Options
 
-### publicPath
+The following show the default values and description.
 
-- Type: `string`
-- Default: `webpackConfig.output.publicPath`
-- Reference: [webpack publicPath](https://webpack.docschina.org/configuration/output/#outputpublicpath)
+```ts
+UpdatePopup({
+  // Similar to `publicDir` in vite, `publicPath` in webpack.
+  publicBasePath: '',
 
-Use publicPath setting
+  // To make updated version code automaticly
+  // Note：If true，the environment variable UPDATE_POPUP_VERSION doesn't work.
+  auto: false,
+
+  // Key of the environment variable.
+  // e.g. `process.env.UPDATE_POPUP_VERSION = 1.0.0`
+  envKey: 'UPDATE_POPUP_VERSION',
+
+  // Generate `update_popup_version.txt` to dist.
+  versionFileName: 'update_popup_version.txt',
+
+  // The way of automatically generated version，values：
+  // timestamp:
+  // it was put in the first place to ensure that it would always be bigger than the previous version.
+  // Note：this will lose the control of version semantics.
+  versionType: 'timestamp',
+
+  // Popup message
+  popupMessage: '发现新版本可用',
+
+  // Popup refresh action text
+  popupActionText: '刷新'
+})
+```
 
 [⬆ Back to Top](#table-of-contents)
 
-### auto
+## Migrate from `v1.1.3`
 
-- Type: `boolean`
-- Default: `false`
-
-to make updated version code automaticly
-
-**Note**：If true，the environment variable `UPDATE_POPUP_VERSION` doesn't work.
-
-### versionType
-
-- Type: `'timestamp' | Support more...`
-- Default: `timestamp`
-
-The way of automatically generated version，values：
-
-- `timestamp`:
-
-  Using the current timestamp，it looks like this: `1603184005919.0.0`. it was put in the first place to ensure that it would always be bigger than the previous version.
-
-  **Note**：this will lose the control of version semantics.
-
-### inject
-
-- Type: `boolean`
-- Default: `true`
-
-Does it need to be automatically added to the webpack entry file?
-If set `false` Need to manually `@femessage/update-popup/app/main` Inject it into your code.
-When to set this parameter, see [Notice.QianKun](#qiankun)。
-
-### envKey
-
-- Type: `string`
-- Default: `'UPDATE_POPUP_VERSION'`
-
-Key of the environment variable. e.g. `process.env.UPDATE_POPUP_VERSION=1.0.0`
-
-### versionFileName
-
-- Type: `string`
-- Default: `'update_popup_version.txt'`
-
-Version filename.
-
-## Notice
-
-### QianKun
-
-This plugin automatically generates a common js file and adds it to the webpack entry file,
-however, due to the requirement to **[export lifecycle hooks](https://qiankun.umijs.org/zh/guide/getting-started#1-%E5%AF%BC%E5%87%BA%E7%9B%B8%E5%BA%94%E7%9A%84%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F%E9%92%A9%E5%AD%90)** for the sub-application's entry file.  
-It is necessary to disable the automatic addition of entry files, with the following adjustments:
-
-#### Use in sub-applications
-
-Adjust the project configuration file
+`src/main.js`
 
 ```diff
-# nuxt.config.js
-const config = {
--  modules: ['@femessage/update-popup/nuxt']
-+  modules: [['@femessage/update-popup/nuxt'], { inject: false }]
-}
-
-# vue.config.js or poi.config.js
-const config = {
-  chainWebpack: config => {
-    config.plugin('update-popup').use(UpdatePopup, [{
-+     inject: false
-    }])
-  }
-}
+- import '@femessage/update-popup/app/main'
++ import '@update-popup'
 ```
 
-Add an entry file in your **Sub-application** at last
+`xxx.config.js` see [Install](#install).
 
 ```diff
-+ import '@femessage/update-popup/app/main'
+UpdatePopup({
+- publicPath: '/',
++ publicBasePath: '/',
+
+- auto: true,
++ versionType: 'auto',
+
+- inject: false,
+})
 ```
 
 [⬆ Back to Top](#table-of-contents)
@@ -197,7 +208,7 @@ Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/d
 <!-- markdownlint-disable -->
 <table>
   <tr>
-    <td align="center"><a href="https://evila.me/"><img src="https://avatars3.githubusercontent.com/u/19513289?v=4?s=100" width="100px;" alt=""/><br /><sub><b>EVILLT</b></sub></a><br /><a href="https://github.com/FEMessage/update-popup/commits?author=evillt" title="Code">💻</a> <a href="https://github.com/FEMessage/update-popup/commits?author=evillt" title="Tests">⚠️</a> <a href="#ideas-evillt" title="Ideas, Planning, & Feedback">🤔</a> <a href="https://github.com/FEMessage/update-popup/commits?author=evillt" title="Documentation">📖</a> <a href="#maintenance-evillt" title="Maintenance">🚧</a></td>
+    <td align="center"><a href="https://github.com/2nthony/"><img src="https://avatars3.githubusercontent.com/u/19513289?v=4?s=100" width="100px;" alt=""/><br /><sub><b>2nthony(formerly evillt)</b></sub></a><br /><a href="https://github.com/FEMessage/update-popup/commits?author=2nthony" title="Code">💻</a> <a href="https://github.com/FEMessage/update-popup/commits?author=evillt" title="Tests">⚠️</a> <a href="#ideas-evillt" title="Ideas, Planning, & Feedback">🤔</a> <a href="https://github.com/FEMessage/update-popup/commits?author=evillt" title="Documentation">📖</a> <a href="#maintenance-evillt" title="Maintenance">🚧</a></td>
     <td align="center"><a href="https://4ark.me"><img src="https://avatars0.githubusercontent.com/u/27952659?v=4?s=100" width="100px;" alt=""/><br /><sub><b>4Ark</b></sub></a><br /><a href="https://github.com/FEMessage/update-popup/commits?author=gd4Ark" title="Documentation">📖</a> <a href="#translation-gd4Ark" title="Translation">🌍</a> <a href="https://github.com/FEMessage/update-popup/commits?author=gd4Ark" title="Code">💻</a> <a href="https://github.com/FEMessage/update-popup/issues?q=author%3Agd4Ark" title="Bug reports">🐛</a></td>
     <td align="center"><a href="http://aa"><img src="https://avatars.githubusercontent.com/u/10540920?v=4?s=100" width="100px;" alt=""/><br /><sub><b>ynwshy</b></sub></a><br /><a href="https://github.com/FEMessage/update-popup/issues?q=author%3Aynwshy" title="Bug reports">🐛</a></td>
   </tr>

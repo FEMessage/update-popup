@@ -7,15 +7,15 @@
 [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)](https://github.com/FEMessage/update-popup/pulls)
 [![Automated Release Notes by gren](https://img.shields.io/badge/%F0%9F%A4%96-release%20notes-00B2EE.svg)](https://github-tools.github.io/github-release-notes/)
 
-![](https://user-images.githubusercontent.com/53422750/88611099-eb654b00-d0ba-11ea-89b9-ca92afc1078c.gif)
+<p align="center">
+  <img src="https://user-images.githubusercontent.com/19513289/147315981-e64ac6ed-85d9-4c3c-ae18-cb066f25863c.gif" />
+</p>
 
 ## Table of Contents
 
 - [Features](#features)
 - [Install](#install)
-- [Usage](#usage)
 - [Options](#options)
-- [Notice](#notice)
 - [Contributing](#contributing)
 - [Contributors](#contributors)
 - [License](#license)
@@ -32,132 +32,152 @@
 yarn add @femessage/update-popup
 ```
 
-[⬆ Back to Top](#table-of-contents)
+<details>
+<summary>Vite</summary>
 
-## Usage
+```ts
+// src/main.js
+import '@update-popup'
 
-你需要通过环境变量 `UPDATE_POPUP_VERSION` 来传入版本号，后续每次迭代更新只需要修改比当前大的版本号即可。
+// vite.config.ts
+import UpdatePopup from '@femessage/update-popup/vite'
 
-环境变量
-
-```bash
-# .env
-UPDATE_POPUP_VERSION=1.0.0 # 如果有必要，可以支持更多位数。如：1.0.0.1，1.0.0.1.1
+export default defineConfig({
+  plugins: [
+    UpdatePopup({
+      /* options */
+    })
+  ]
+})
 ```
 
-也可以使用 [options.auto](#options.auto) 来实现自动更新版本。
+</details><br/>
 
-工程配置文件
+<details>
+<summary>Webpack</summary>
 
-```js
-// nuxt.config.js
-const config = {
-  modules: ['@femessage/update-popup/nuxt', {options}]
+```ts
+// src/main.js
+import '@update-popup'
+
+// webpack.config.ts
+module.exports = {
+  plugins: [
+    require('@femessage/update-popup/webpack')({
+      /* options */
+    })
+  ]
 }
+```
 
-// vue.config.js 或者 poi.config.js
-const UpdatePopup = require('@femessage/update-popup')
-const config = {
-  chainWebpack: config => {
-    config.plugin('femessage-update-popup').use(UpdatePopup, [{options}])
+</details><br/>
+
+<details>
+<summary>Nuxt2</summary>
+
+```ts
+// plugins/update-popup.js
+import '@update-popup'
+
+// nuxt.config.ts
+export default {
+  plugins: [
+    {
+      src: '~/plugins/update-popup',
+      mode: 'client'
+    }
+  ],
+  buildModules: [
+    [
+      '@femessage/update-popup/nuxt',
+      {
+        /* options */
+      }
+    ]
+  ]
+}
+```
+
+</details><br/>
+
+<details>
+<summary>Vue CLI</summary>
+
+```ts
+// src/main.js
+import '@update-popup'
+
+// vue.config.ts
+module.exports = {
+  configureWebpack: {
+    plugins: [
+      require('@femessage/update-popup/webpack')({
+        /* options */
+      })
+    ]
   }
 }
 ```
 
-就这么简单！
+</details><br/>
 
 [⬆ Back to Top](#table-of-contents)
 
 ## Options
 
-### options.publicPath
+这里显示默认值及其介绍。
 
-- Type: `string`
-- Default: `webpackConfig.output.publicPath`
-- Reference: [webpack publicPath](https://webpack.docschina.org/configuration/output/#outputpublicpath)
+```ts
+UpdatePopup({
+  // 与 vite 的 `publicDir` 和 webpack 的 `publicPath` 相似.
+  publicBasePath: '',
 
-使用独立的 publicPath，一般情况下不需要设置此参数。
+  // 是否需要自动更新版本，需要配合 options.versionType 一起使用。
+  // 注意：开启此功能，环境变量 UPDATE_POPUP_VERSION 则不会再生效。
+  auto: false,
 
-[⬆ Back to Top](#table-of-contents)
+  // 环境变量的 key
+  // 例如：`process.env.UPDATE_POPUP_VERSION = 1.0.0`
+  envKey: 'UPDATE_POPUP_VERSION',
 
-### options.auto
+  // 生成 `update_popup_version.txt` 到输出目录
+  versionFileName: 'update_popup_version.txt',
 
-- Type: `boolean`
-- Default: `false`
+  // 自动生成的 version 的方式，可选值：
+  // timestamp:
+  // 使用当前时间戳，它看上去是这样的：1603184005919.0.0，把时间戳放在版本号的第一位，是为了保证无论如何都会大于已有的版本。
+  // 注意：这将失去版本语义化的控制。
+  versionType: 'timestamp',
 
-是否需要自动更新版本，需要配合 `options.versionType` 一起使用。
+  // 弹出框信息文本
+  popupMessage: '发现新版本可用',
 
-**注意**：开启此功能，环境变量 `UPDATE_POPUP_VERSION` 则不会再生效。
-
-### options.versionType
-
-- Type: `'timestamp' | 未来支持更多`
-- Default: `timestamp`
-
-自动生成的 version 的方式，可选值：
-
-- `timestamp`:
-
-  使用当前时间戳，它看上去是这样的：`1603184005919.0.0`，把时间戳放在版本号的第一位，是为了保证无论如何都会大于已有的版本。
-
-  **注意**：这将失去版本语义化的控制。
-
-### options.inject
-
-- Type: `boolean`
-- Default: `true`
-
-是否自动添加到 webpack 入口文件，一般情况下不需要设置此参数。  
-如果设置为 `false` 需要手动将 `@femessage/update-popup/app/main` 注入到你的代码中。  
-何时需要设置此参数请参阅 [Notice.QianKun（乾坤）](#qiankun乾坤)。
-
-### options.envKey
-
-- Type: `string`
-- Default: `'UPDATE_POPUP_VERSION'`
-
-指定获取环境变量的 key 。e.g. `process.env.UPDATE_POPUP_VERSION=1.0.0`
-
-### options.versionFileName
-
-- Type: `string`
-- Default: `'update_popup_version.txt'`
-
-版本号文件名。
-
-## Notice
-
-### QianKun（乾坤）
-
-此插件会自动生成一个普通的 js 文件并添加到 webpack 入口文件中，  
-但由于子应用的入口文件需要 **[导出生命周期钩子](https://qiankun.umijs.org/zh/guide/getting-started#1-%E5%AF%BC%E5%87%BA%E7%9B%B8%E5%BA%94%E7%9A%84%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F%E9%92%A9%E5%AD%90)** 的要求，  
-因此需要禁止自动添加入口文件，则做如下的调整：
-
-#### 在子应用中使用
-
-调整工程配置文件
-
-```diff
-# nuxt.config.js
-const config = {
--  modules: ['@femessage/update-popup/nuxt']
-+  modules: [['@femessage/update-popup/nuxt'], { inject: false }]
-}
-
-# vue.config.js 或者 poi.config.js
-const config = {
-  chainWebpack: config => {
-    config.plugin('update-popup').use(UpdatePopup, [{
-+     inject: false
-    }])
-  }
-}
+  // 弹出框刷新按钮文本
+  popupActionText: '刷新'
+})
 ```
 
-最后在你的**子应用**入口文件添加
+## 从 `v1.1.3` 迁移
+
+`src/main.js`
 
 ```diff
-+ import '@femessage/update-popup/app/main'
+- import '@femessage/update-popup/app/main'
++ import '@update-popup'
+```
+
+`xxx.config.js` 请参照 [Install](#install).
+
+```diff
+UpdatePopup({
+- publicPath: '/',
++ publicBasePath: '/',
+
+- auto: true,
++ versionType: 'auto',
+
+- inject: false,
+})
 ```
 
 [⬆ Back to Top](#table-of-contents)
@@ -184,7 +204,9 @@ Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/d
 <!-- markdownlint-disable -->
 <table>
   <tr>
-    <td align="center"><a href="https://evila.me/"><img src="https://avatars3.githubusercontent.com/u/19513289?v=4?s=100" width="100px;" alt=""/><br /><sub><b>EVILLT</b></sub></a><br /><a href="https://github.com/FEMessage/update-popup/commits?author=evillt" title="Code">💻</a> <a href="https://github.com/FEMessage/update-popup/commits?author=evillt" title="Tests">⚠️</a> <a href="#ideas-evillt" title="Ideas, Planning, & Feedback">🤔</a> <a href="https://github.com/FEMessage/update-popup/commits?author=evillt" title="Documentation">📖</a> <a href="#maintenance-evillt" title="Maintenance">🚧</a></td>
+    <td align="center"><a href="https://github.com/2nthony/"><img src="https://avatars3.githubusercontent.com/u/19513289?v=4?s=100" width="100px;" alt=""/><br /><sub><b>2nthony(formerly evillt)</b></sub></a><br /><a href="https://github.com/FEMessage/update-popup/commits?author=2nthony" title="Code">💻</a> <a href="https://github.com/FEMessage/update-popup/commits?author=evillt" title="Tests">⚠️</a> <a href="#ideas-evillt" title="Ideas, Planning, & Feedback">🤔</a> <a href="https://github.com/FEMessage/update-popup/commits?author=evillt" title="Documentation">📖</a> <a href="#maintenance-evillt" title="Maintenance">🚧</a></td>
+    <td align="center"><a href="https://4ark.me"><img src="https://avatars0.githubusercontent.com/u/27952659?v=4?s=100" width="100px;" alt=""/><br /><sub><b>4Ark</b></sub></a><br /><a href="https://github.com/FEMessage/update-popup/commits?author=gd4Ark" title="Documentation">📖</a> <a href="#translation-gd4Ark" title="Translation">🌍</a> <a href="https://github.com/FEMessage/update-popup/commits?author=gd4Ark" title="Code">💻</a> <a href="https://github.com/FEMessage/update-popup/issues?q=author%3Agd4Ark" title="Bug reports">🐛</a></td>
+    <td align="center"><a href="http://aa"><img src="https://avatars.githubusercontent.com/u/10540920?v=4?s=100" width="100px;" alt=""/><br /><sub><b>ynwshy</b></sub></a><br /><a href="https://github.com/FEMessage/update-popup/issues?q=author%3Aynwshy" title="Bug reports">🐛</a></td>
   </tr>
 </table>
 
