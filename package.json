@@ -121,5 +121,6 @@
       "git add"
     ]
   },
-  "gren": "@femessage/grenrc"
+  "gren": "@femessage/grenrc",
+  "packageManager": "yarn@1.22.19"
 }
