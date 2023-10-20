@@ -13,18 +13,37 @@ export default createUnplugin<Options>((options = {}) => {
   const resolvedVirtualModuleId = '\0' + virtualModuleId
 
   const {
+    auto = false,
     envKey = 'UPDATE_POPUP_VERSION',
     versionFileName = 'update_popup_version.txt',
-    versionType = 'auto',
     popupMessage = '发现新版本可用',
-    popupActionText = '刷新',
+    popupActionText = '刷新'
   } = options
-  let {publicBasePath = ''} = options
+  let {publicBasePath = '', versionType = 'timestamp'} = options
 
-  const currentVersion =
-    versionType === 'auto'
-      ? `${Date.now()}.0.0`
-      : process.env[envKey] || '0.1.0'
+  let currentVersion: string
+
+  if (auto) {
+    if (!versionType) {
+      if (process.env.NODE_ENV === 'production') {
+        console.warn(
+          `Unknown versionType: ${versionType}. Falling back to timestamp`
+        )
+
+        versionType = 'timestamp'
+      }
+    }
+
+    switch (versionType) {
+      case 'timestamp':
+        currentVersion = `${Date.now()}.0.0`
+        break
+      default:
+        break
+    }
+  } else {
+    currentVersion = process.env[envKey] || '1.0.0'
+  }
 
   const writeVersionFile = (file: string) => {
     return writeFile(path.join(file, versionFileName), currentVersion)
@@ -52,7 +71,7 @@ export default createUnplugin<Options>((options = {}) => {
             versionFileName
           ),
           popupMessage,
-          popupActionText,
+          popupActionText
         })
       }
     },
@@ -77,7 +96,7 @@ export default createUnplugin<Options>((options = {}) => {
         const p = options.dir
         if (!p) return
         await writeVersionFile(p)
-      },
-    },
+      }
+    }
   }
 })

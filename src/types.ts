@@ -5,6 +5,12 @@ export interface Options {
    */
   publicBasePath?: string
   /**
+   * To make updated version code automaticly
+   * Note：If true，the environment variable UPDATE_POPUP_VERSION doesn't work.
+   * @default false
+   */
+  auto?: boolean
+  /**
    * @default 'UPDATE_POPUP_VERSION'
    */
   envKey?: string
@@ -12,7 +18,12 @@ export interface Options {
    * @default 'update_popup_version.txt'
    */
   versionFileName?: string
-  versionType?: 'auto' | 'env'
+
+  /**
+   * Using the current timestamp，it looks like this: 1603184005919.0.0.
+   * @default 'timestamp'
+   */
+  versionType?: 'timestamp'
   /**
    * @default '发现新版本可用'
    */
